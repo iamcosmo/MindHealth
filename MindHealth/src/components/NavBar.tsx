@@ -21,25 +21,21 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [loggedIn, setLoggedIn] = useState(false); // State to track login status
-  // const [accountBtnLabel, setAccountBtnLabel] = useState('Log In'); // State for button label
+  const [loggedIn, setLoggedIn] = useState(false);
+  
 
   const handleProfile = (setting:String) => {
     handleCloseUserMenu();
 
     if (setting === "Profile") {
-      navigate("/profile"); // Navigate to the profile page
+      navigate("/profile"); 
     } else if (setting === "login") {
-      navigate("/login"); // Navigate to the login page
+      navigate("/login"); 
     } else if (setting === "Log Out") {
-      // Handle logout logic here
+      
     }
   };
 
-  // ... rest of your component code ...
-
-
-  // You'll also need to define the functions that handle opening and closing the menus
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -55,14 +51,13 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const pages = ["Check Status", "Recomendations", "About"]; // Replace with your pages
-  const settings = ["Profile", "Log Out"]; // Replace with your settings
+  const pages = ["Check Status", "Recomendations", "About"]; 
+  const settings = ["Profile", "Log Out"]; 
 
-  // ... the rest of your component code ...
 
   return (
     <>
-      <AppBar position="sticky" sx={{ backgroundColor: "#2e3b4e" }}>
+      <AppBar position="sticky" sx={{ backgroundColor: "#006666" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <SpaTwoToneIcon
@@ -197,11 +192,6 @@ const NavBar = () => {
                     </Typography>
                   </MenuItem>
                 )}
-                {/* {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" >{setting}</Typography>
-                  </MenuItem>
-                ))} */}
               </Menu>
             </Box>
           </Toolbar>
@@ -212,6 +202,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-function setAccountBtnLabel(arg0: string) {
-  throw new Error("Function not implemented.");
-}

@@ -1,48 +1,29 @@
 import React, { useState } from 'react';
-import { Container, Typography, TextField, Button, Grid } from '@mui/material';
-import { styled } from '@mui/system';
 import axios from 'axios';
+import CloseIcon from '@mui/icons-material/Close'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { styled } from '@mui/system';
 
-// const FormContainer = styled(Container)(({ theme }) => ({
-//   marginTop: theme.spacing(4),
-// }));
 
-// const Form = styled('form')({
-//   display: 'flex',
-//   flexDirection: 'column',
-//   alignItems: 'center',
-// });
 
-// const TextFieldWrapper = styled(TextField)(({ theme }) => ({
-//   marginBottom: theme.spacing(2),
-// }));
-const FormContainer = styled(Container)(({ theme }) => ({
-  position: 'fixed',
-  top: '0',
-  left: '0',
-  right: '0',
-  bottom: '0',
-  zIndex: '9999',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-}));
-
-const Form = styled('form')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  backgroundColor: '#ffffff',
-  padding: '16px',
-  borderRadius: '8px',
+interface LoginPageProps {
+  onClose: () => void; 
+}
+const CustomTypography = styled(Typography)({
+  fontSize: '30px',
 });
 
-const TextFieldWrapper = styled(TextField)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-}));
-
-const LoginPage = () => {
+const LoginPage: React.FC<LoginPageProps>= ({onClose}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -51,38 +32,54 @@ const LoginPage = () => {
     try {
       const response = await axios.post('/api/login', { username, password });
       if (response.status === 200) {
-        // Successful login, perform necessary actions
         console.log('Login successful');
+        onClose();     
+        
       }
     } catch (error) {
-      // Handle login error
       console.error('Login error:', error);
     }
   };
   return (
-    <FormContainer maxWidth="xs">
-      <Typography variant="h5" align="center" gutterBottom>
-        Login
-      </Typography>
-      <Form>
-        <TextFieldWrapper
+    <Dialog open={true} onClose={onClose}> 
+      <DialogTitle>
+        <CustomTypography >Login</CustomTypography>
+        <IconButton
+          edge="end"
+          color="inherit"
+          onClick={onClose} 
+          aria-label="close"
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Please enter your username and password to log in.
+        </DialogContentText>
+        <TextField
+          autoFocus
+          margin="dense"
           label="Username"
-          variant="outlined"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="text"
+          fullWidth
         />
-        <TextFieldWrapper
+        <TextField
+          margin="dense"
           label="Password"
-          variant="outlined"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          fullWidth
         />
-        <Button variant="contained" color="primary" onClick={handleLogin}>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={handleLogin} color="primary">
           Login
         </Button>
-      </Form>
-    </FormContainer>
+      </DialogActions>
+    </Dialog>
   );
 }
 

@@ -21,32 +21,36 @@ const CarouselComponent = () => {
     },
   ];
 
+
   const carouselSettings = {
-    autoPlay: true, // Enable automatic slide changes
-    interval: 4000, // Set interval to 4000 milliseconds (4 seconds)
-    infiniteLoop: true, // Enable infinite looping
-    showThumbs: false, // Hide thumbnail navigation
+    autoPlay: true,
+    animation: "fade",
+    interval: 3000,
+    timeout: 500,
+    showThumbs: false,
+    stopOnHover: true,
   };
   return (
-    <Carousel {...carouselSettings}>
-      {items.map((item, index) => (
-        <Paper
-          key={index}
-          elevation={16}
-          style={{ padding: 20, textAlign: "center" }}
-        >
-          <img
-            src={item.imagePath}
-            alt={`Slide ${index + 1}`}
-            style={{ width: '100%', height: '430px', maxWidth: '1100px' }} 
-          />
-          <Typography variant="h5" component="div" gutterBottom>
-            {item.title}
-          </Typography>
-          {/* <Typography variant="body1">{item.content}</Typography> */}
-        </Paper>
-      ))}
-    </Carousel>
+    
+      <Carousel {...carouselSettings} >
+        {items.map((item, index) => (
+          <Paper
+            key={index}
+            elevation={16}
+            style={{ padding: 20, textAlign: "center" }}
+          >
+            <img
+              src={item.imagePath}
+              alt={`Slide ${index + 1}`}
+              style={{ width: "100%", height: "430px", maxWidth: "1100px" }}
+            />
+            <Typography variant="h5" component="div" gutterBottom>
+              {item.title}
+            </Typography>
+            {/* <Typography variant="body1">{item.content}</Typography> */}
+          </Paper>
+        ))}
+      </Carousel>
   );
 };
 
