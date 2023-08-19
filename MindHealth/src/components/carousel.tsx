@@ -6,26 +6,23 @@ const CarouselComponent = () => {
   const items = [
     {
       title: "Human Brain",
-      content: "This is the content for Slide 1.",
       imagePath: "./src/assets/Brain3D.png",
     },
     {
-      title: "Cosmic Brain",
-      content: "This is the content for Slide 2.",
+      title: "Cosmic Brain",      
       imagePath: "./src/assets/MindIsBigger.png",
     },
     {
       title: "Socialize",
-      content: "This is the content for Slide 3.",
       imagePath: "./src/assets/Socialize.png",
     },
   ];
 
   const carouselSettings = {
-    autoPlay: true, // Enable automatic slide changes
-    interval: 4000, // Set interval to 4000 milliseconds (4 seconds)
-    infiniteLoop: true, // Enable infinite looping
-    showThumbs: false, // Hide thumbnail navigation
+    autoPlay: true, 
+    interval: 4000, 
+    infiniteLoop: true, 
+    showThumbs: false, 
   };
   return (
     <Carousel {...carouselSettings}>
@@ -43,7 +40,6 @@ const CarouselComponent = () => {
           <Typography variant="h5" component="div" gutterBottom>
             {item.title}
           </Typography>
-          {/* <Typography variant="body1">{item.content}</Typography> */}
         </Paper>
       ))}
     </Carousel>
