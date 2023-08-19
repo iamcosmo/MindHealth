@@ -19,10 +19,6 @@ import { pink } from "@mui/material/colors";
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  // ... the rest of your component code ...
-
-  // You'll also need to define the functions that handle opening and closing the menus
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -38,11 +34,8 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const pages = ["Check Status", "Recomendations", "About"]; // Replace with your pages
-  const settings = ["Profile", "Log Out"]; // Replace with your settings
-
-  // ... the rest of your component code ...
-
+  const pages = ["Check Status", "Recomendations", "About"]; 
+  const settings = ["Profile", "Log Out"]; 
   return (
     <>
       <AppBar position="sticky">
