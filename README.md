@@ -1,2 +1,3 @@
 # MindHealth
-This WEB-DEV-ML Project features a Mental status detector model trained on dataset from kaggle. Mainly applicable for working professionals.
+A WebPage for predicting the mental health status based on a trained ML MODEL. Dataset used from [Kaggle](https://www.kaggle.com/)
+This prediction model works mainly for Working Profesionals
