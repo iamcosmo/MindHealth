@@ -1,43 +1,58 @@
 import { ThemeProvider, createTheme } from "@mui/material";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {useNavigate, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import CarouselComponent from "./components/carousel";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
+import { useState } from "react";
+
+
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#2196F3", // Customize the primary color
+      main: "#2196F3", 
     },
     secondary: {
-      main: "#FFC107", // Customize the secondary color
+      main: "#FFC107", 
     },
     background: {
-      default: "#121212", // Customize the default background color
-      paper: "#1E1E1E", // Customize the paper background color (cards, etc.)
+      default: "#121212", 
+      paper: "#1E1E1E", 
     },
     text: {
-      primary: "#FFFFFF", // Customize the primary text color
-      secondary: "#B0B0B0", // Customize the secondary text color
+      primary: "#FFFFFF", 
+      secondary: "#B0B0B0", 
     },
   },
 });
 
 function App() {
+  const navigate = useNavigate();
+  const [isLoginOpen, setIsLoginOpen] = useState(true); 
+
+  const handleLoginOpen = () => {
+    setIsLoginOpen(true);
+  };
+
+  const handleLoginClose = () => {
+    setIsLoginOpen(false);
+    navigate("/");
+    handleLoginOpen();
+  };
   return (
     <>
-      <BrowserRouter>
+     
         <ThemeProvider theme={darkTheme}>
           <NavBar />
           <CarouselComponent />
           <Routes>
-            <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
-            <Route path="/profile" element={<ProfilePage />} />{" "}
+            <Route path="/login" element={isLoginOpen&&<LoginPage onClose={handleLoginClose} />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </ThemeProvider>
-      </BrowserRouter>
+      
     </>
   );
 }
