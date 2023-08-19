@@ -6,17 +6,14 @@ const CarouselComponent = () => {
   const items = [
     {
       title: "Human Brain",
-      content: "This is the content for Slide 1.",
       imagePath: "./src/assets/Brain3D.png",
     },
     {
-      title: "Cosmic Brain",
-      content: "This is the content for Slide 2.",
+      title: "Cosmic Brain",      
       imagePath: "./src/assets/MindIsBigger.png",
     },
     {
       title: "Socialize",
-      content: "This is the content for Slide 3.",
       imagePath: "./src/assets/Socialize.png",
     },
   ];
