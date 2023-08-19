@@ -32,13 +32,13 @@ const CarouselComponent = () => {
       {items.map((item, index) => (
         <Paper
           key={index}
-          elevation={3}
+          elevation={16}
           style={{ padding: 20, textAlign: "center" }}
         >
           <img
             src={item.imagePath}
             alt={`Slide ${index + 1}`}
-            style={{ width: '100%', height: '370px', maxWidth: '800px' }} 
+            style={{ width: '100%', height: '430px', maxWidth: '1100px' }} 
           />
           <Typography variant="h5" component="div" gutterBottom>
             {item.title}
