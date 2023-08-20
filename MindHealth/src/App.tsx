@@ -1,36 +1,16 @@
-import { ThemeProvider, createTheme } from "@mui/material";
-import {useNavigate, Route, Routes } from "react-router-dom";
+import {  useMediaQuery } from "@mui/material";
+import { useNavigate, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import CarouselComponent from "./components/carousel";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
-import { useState } from "react";
-
-
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#2196F3", 
-    },
-    secondary: {
-      main: "#FFC107", 
-    },
-    background: {
-      default: "#121212", 
-      paper: "#1E1E1E", 
-    },
-    text: {
-      primary: "#FFFFFF", 
-      secondary: "#B0B0B0", 
-    },
-  },
-});
+import { useState,useEffect } from "react";
+import Carousel3D from "./components/Carousel3D";
+import darkTheme from "./assets/themes/darkTheme";
+import cardData from "./assets/data/cardData";
 
 function App() {
   const navigate = useNavigate();
-  const [isLoginOpen, setIsLoginOpen] = useState(true); 
+  const [isLoginOpen, setIsLoginOpen] = useState(true);
 
   const handleLoginOpen = () => {
     setIsLoginOpen(true);
@@ -41,18 +21,64 @@ function App() {
     navigate("/");
     handleLoginOpen();
   };
+
+  const isMobile = useMediaQuery(() => darkTheme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(() => darkTheme.breakpoints.between('sm', 'md'));
+
+  let carouselWidth = '60rem'; 
+
+  if (isMobile) {
+    carouselWidth = '13rem';
+    console.log("Carousel width: ",carouselWidth);
+    
+  } else if (isTablet) {    
+    carouselWidth = '30rem'; 
+    console.log("Carousel width: ",carouselWidth);
+  }
+
+
+    
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const incrementActiveIndex = () => {
+    setActiveIndex((prevIndex) => (prevIndex + 1) % cardData.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(incrementActiveIndex, 5000); 
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   return (
     <>
-     
-        <ThemeProvider theme={darkTheme}>
-          <NavBar />
-          <CarouselComponent />
-          <Routes>
-            <Route path="/login" element={isLoginOpen&&<LoginPage onClose={handleLoginClose} />} />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Routes>
-        </ThemeProvider>
-      
+        <NavBar />
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Carousel3D activeIn={activeIndex} containerWidth={carouselWidth}>
+            {cardData.map((card, index) => (
+              <div className="card" key={index}>
+                <h2>{card.title}</h2>
+                <p>{card.content}</p>
+              </div>
+            ))}
+          </Carousel3D>
+        </div>
+        <Routes>
+          <Route
+            path="/login"
+            element={isLoginOpen && <LoginPage onClose={handleLoginClose} />}
+          />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Routes>
     </>
   );
 }
