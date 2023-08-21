@@ -1,7 +1,7 @@
 import {  useMediaQuery } from "@mui/material";
 import { useNavigate, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import LoginPage from "./pages/LoginPage";
+import LoginRegister from "./pages/LoginRegister";
 import ProfilePage from "./pages/ProfilePage";
 import { useState,useEffect } from "react";
 import Carousel3D from "./components/Carousel3D";
@@ -75,7 +75,7 @@ function App() {
         <Routes>
           <Route
             path="/login"
-            element={isLoginOpen && <LoginPage onClose={handleLoginClose} />}
+            element={isLoginOpen && <LoginRegister onClose={handleLoginClose} />}
           />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>

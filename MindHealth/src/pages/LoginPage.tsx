@@ -14,13 +14,13 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 
-
-
 interface LoginPageProps {
   onClose: () => void; 
 }
 const CustomTypography = styled(Typography)({
   fontSize: '30px',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)', 
+  color: 'blue', 
 });
 
 const LoginPage: React.FC<LoginPageProps>= ({onClose}) => {
@@ -41,8 +41,15 @@ const LoginPage: React.FC<LoginPageProps>= ({onClose}) => {
     }
   };
   return (
-    <Dialog open={true} onClose={onClose}> 
-      <DialogTitle>
+    <Dialog open={true} onClose={onClose} PaperProps={{
+      sx: {
+        backgroundColor: 'rgba(72, 61, 139, 0.8)', 
+        backdropFilter: 'blur(8px)', 
+        borderRadius: '10px', 
+        padding: '20px', 
+      },
+    }}> 
+      <DialogTitle sx={{ borderBottom: '1px solid #ccc' }}>
         <CustomTypography >Login</CustomTypography>
         <IconButton
           edge="end"
@@ -54,7 +61,7 @@ const LoginPage: React.FC<LoginPageProps>= ({onClose}) => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText sx={{ color: 'textSecondary' }}>
           Please enter your username and password to log in.
         </DialogContentText>
         <TextField
@@ -63,12 +70,14 @@ const LoginPage: React.FC<LoginPageProps>= ({onClose}) => {
           label="Username"
           type="text"
           fullWidth
+          sx={{ backgroundColor: 'rgba(153, 50, 204, 0.2)' }}
         />
         <TextField
           margin="dense"
           label="Password"
           type="password"
           fullWidth
+          sx={{ backgroundColor: 'rgba(153, 50, 204, 0.2)' }}
         />
       </DialogContent>
       <DialogActions>

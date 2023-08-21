@@ -14,5 +14,4 @@ const cardData = [
     // Add more card data here
   ];
   
-  export default cardData;
-  
+  export default cardData;  
