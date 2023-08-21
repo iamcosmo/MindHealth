@@ -175,6 +175,7 @@ const NavBar = () => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
+                
               >
                 {loggedIn ? ( // If logged in, show settings
                   settings.map((setting) => (
@@ -186,9 +187,9 @@ const NavBar = () => {
                   ))
                 ) : (
                   // If not logged in, show login option
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" onClick={()=>handleProfile("login")}>
-                      Log In
+                  <MenuItem onClick={handleCloseUserMenu} >
+                    <Typography  textAlign="center" onClick={()=>handleProfile("login")}>
+                      Log In / Register
                     </Typography>
                   </MenuItem>
                 )}

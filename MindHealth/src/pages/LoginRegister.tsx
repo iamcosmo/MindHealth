@@ -33,7 +33,7 @@ const LoginRegister:React.FC<LoginRegisterPageProps>= ({onClose}) => {
       }}>
       <DialogTitle sx={{ borderBottom: '1px solid #ccc' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <CustomTypography color="textPrimary">MindHealth</CustomTypography>
+          <CustomTypography >MindHealth</CustomTypography>
           <Tabs value={currentTab}  onChange={(event, newTab) => handleTabChange(newTab)}>
             <Tab label="Login" />
             <Tab label="Register" />
