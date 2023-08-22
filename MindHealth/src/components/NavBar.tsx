@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import {useNavigate,} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import SpaTwoToneIcon from "@mui/icons-material/SpaTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -22,18 +22,17 @@ const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [loggedIn, setLoggedIn] = useState(false);
-  
 
-  const handleProfile = (setting:String) => {
+  const handleProfile = () => {
     handleCloseUserMenu();
 
-    if (setting === "Profile") {
-      navigate("/profile"); 
-    } else if (setting === "login") {
-      navigate("/login"); 
-    } else if (setting === "Log Out") {
-      
-    }
+    // if (setting === "Profile") {
+    //   navigate("/profile");
+    // } else if (setting === "login") {
+    //   navigate("/login");
+    // } else if (setting === "Log Out") {
+
+    // }
   };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,15 +50,17 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const pages = ["Check Status", "Recomendations", "About"]; 
-  const settings = ["Profile", "Log Out"]; 
-
+  const pages = ["Check Status", "Recomendations", "About"];
+  const settings = ["Profile", "Log Out"];
 
   return (
     <>
-      <AppBar position="sticky" sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)",width:"100%"}}>
+      <AppBar
+        position="sticky"
+        sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)", width: "100%" }}
+      >
         <Container maxWidth="xl">
-          <Toolbar disableGutters >
+          <Toolbar disableGutters>
             <SpaTwoToneIcon
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
             />
@@ -175,22 +176,40 @@ const NavBar = () => {
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
-                
               >
                 {loggedIn ? ( // If logged in, show settings
                   settings.map((setting) => (
                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center" onClick={()=>handleProfile(setting)}>
-                        {setting}
-                      </Typography>
+                      <Link
+                        to={setting === "Profile" ? "/profile" : "/"}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Typography
+                          textAlign="center"
+                          onClick={() => handleProfile()}
+                          variant="body1"
+                          color="secondary"
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {setting}
+                        </Typography>
+                      </Link>
                     </MenuItem>
                   ))
                 ) : (
                   // If not logged in, show login option
-                  <MenuItem onClick={handleCloseUserMenu} >
-                    <Typography  textAlign="center" onClick={()=>handleProfile("login")}>
-                      Log In / Register
-                    </Typography>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
+                      <Typography
+                        textAlign="center"
+                        onClick={() => handleProfile()}
+                        variant="body1"
+                        color="secondary"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Log In / Register
+                      </Typography>
+                    </Link>
                   </MenuItem>
                 )}
               </Menu>
