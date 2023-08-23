@@ -7,6 +7,9 @@ import { useState,useEffect } from "react";
 import Carousel3D from "./components/Carousel3D";
 import darkTheme from "./assets/themes/darkTheme";
 import cardData from "./assets/data/cardData";
+import axios from "axios";
+
+axios.defaults.baseURL='http://localhost:4000';
 
 function App() {
   const navigate = useNavigate();
