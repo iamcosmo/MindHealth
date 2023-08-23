@@ -10,7 +10,7 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import axios from "axios";
 import { useState } from "react";
@@ -31,7 +31,7 @@ const LoginRegister: React.FC<LoginRegisterPageProps> = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [currentTab, setCurrentTab] = useState(0);
-
+  const navigate = useNavigate();
   const registerLoginUser = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
@@ -45,7 +45,8 @@ const LoginRegister: React.FC<LoginRegisterPageProps> = ({ onClose }) => {
           email,
           password,
         });
-        alert('Registratin Successful! Now you can Login');        
+        alert('Registratin Successful! Now you can Login'); 
+        navigate("/");       
       }
     } catch (error) {
       console.log(error);
