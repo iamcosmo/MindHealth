@@ -15,24 +15,34 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SpaTwoToneIcon from "@mui/icons-material/SpaTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AppBar from "@mui/material/AppBar/AppBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { pink } from "@mui/material/colors";
+import { useUserContext } from "../UserContext";
+import axios from "axios";
+
 const NavBar = () => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  const { user, setUser, logout } = useUserContext();
 
-  const handleProfile = () => {
+  useEffect(() => {
+    // Update the loggedIn state based on whether the user is logged in
+    const loggedInStatus = user !== null;
+    setLoggedIn(loggedInStatus);
+  }, [user]);
+  const handleProfile = async (settings: String) => {
+    if (settings === "Log Out") {
+      try {
+        await axios.post("/logout"); // Call the /logout route
+        logout(); // Clear user context and local storage token
+        navigate("/");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    }
     handleCloseUserMenu();
-
-    // if (setting === "Profile") {
-    //   navigate("/profile");
-    // } else if (setting === "login") {
-    //   navigate("/login");
-    // } else if (setting === "Log Out") {
-
-    // }
   };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -159,6 +169,7 @@ const NavBar = () => {
                   <Avatar sx={{ bgcolor: pink[500] }}>
                     <AccountCircleIcon />
                   </Avatar>
+                  <Typography>{user?.name}</Typography>
                 </IconButton>
               </Tooltip>
               <Menu
@@ -186,7 +197,7 @@ const NavBar = () => {
                       >
                         <Typography
                           textAlign="center"
-                          onClick={() => handleProfile()}
+                          onClick={() => handleProfile(setting)}
                           variant="body1"
                           color="secondary"
                           style={{ fontWeight: "bold" }}
@@ -202,7 +213,6 @@ const NavBar = () => {
                     <Link to="/login" style={{ textDecoration: "none" }}>
                       <Typography
                         textAlign="center"
-                        onClick={() => handleProfile()}
                         variant="body1"
                         color="secondary"
                         style={{ fontWeight: "bold" }}

@@ -8,8 +8,9 @@ import Carousel3D from "./components/Carousel3D";
 import darkTheme from "./assets/themes/darkTheme";
 import cardData from "./assets/data/cardData";
 import axios from "axios";
-
+import { UserProvider } from "./UserContext";
 axios.defaults.baseURL='http://localhost:4000';
+axios.defaults.withCredentials=true;
 
 function App() {
   const navigate = useNavigate();
@@ -57,6 +58,7 @@ function App() {
 
   return (
     <>
+      <UserProvider>
         <NavBar />
         <div
           style={{
@@ -82,6 +84,7 @@ function App() {
           />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
+        </UserProvider>
     </>
   );
 }
