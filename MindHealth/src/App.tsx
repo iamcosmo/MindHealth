@@ -1,16 +1,13 @@
-import {  useMediaQuery } from "@mui/material";
 import { useNavigate, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import LoginRegister from "./pages/LoginRegister";
 import ProfilePage from "./pages/ProfilePage";
-import { useState,useEffect } from "react";
-import Carousel3D from "./components/Carousel3D";
-import darkTheme from "./assets/themes/darkTheme";
-import cardData from "./assets/data/cardData";
+import { useState } from "react";
 import axios from "axios";
 import { UserProvider } from "./UserContext";
-axios.defaults.baseURL='http://localhost:4000';
-axios.defaults.withCredentials=true;
+import Carousel3DMap from "./components/Carousel3DMap";
+axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.withCredentials = true;
 
 function App() {
   const navigate = useNavigate();
@@ -26,65 +23,24 @@ function App() {
     handleLoginOpen();
   };
 
-  const isMobile = useMediaQuery(() => darkTheme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(() => darkTheme.breakpoints.between('sm', 'md'));
-
-  let carouselWidth = '60rem'; 
-
-  if (isMobile) {
-    carouselWidth = '13rem';
-    console.log("Carousel width: ",carouselWidth);
-    
-  } else if (isTablet) {    
-    carouselWidth = '30rem'; 
-    console.log("Carousel width: ",carouselWidth);
-  }
-
-
-    
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const incrementActiveIndex = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % cardData.length);
-  };
-
-  useEffect(() => {
-    const timer = setInterval(incrementActiveIndex, 5000); 
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
   return (
     <>
       <UserProvider>
         <NavBar />
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Carousel3D activeIn={activeIndex} containerWidth={carouselWidth}>
-            {cardData.map((card, index) => (
-              <div className="card" key={index}>
-                <h2>{card.title}</h2>
-                <p>{card.content}</p>
-              </div>
-            ))}
-          </Carousel3D>
-        </div>
         <Routes>
           <Route
             path="/login"
-            element={isLoginOpen && <LoginRegister onClose={handleLoginClose} />}
+            element={
+              isLoginOpen && <LoginRegister onClose={handleLoginClose} />
+            }
           />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/*" element={<ProfilePage />} />
+          <Route
+            path="/*" // This matches any other route that's not explicitly defined above
+            element={<Carousel3DMap />}
+          />
         </Routes>
-        </UserProvider>
+      </UserProvider>
     </>
   );
 }

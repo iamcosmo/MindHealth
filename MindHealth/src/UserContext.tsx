@@ -5,7 +5,13 @@ import { Navigate } from "react-router-dom";
 interface User {
   name: string;
   email: String,
-  password:String,
+  password:string,
+  profileImage:string,
+  profession:string,
+  address:string,
+  dob:Date,
+  sex:string,
+  phone:string,
 }
 
 interface UserContextType {

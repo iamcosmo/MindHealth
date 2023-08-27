@@ -111,5 +111,44 @@ body {
     font-size: 1.8rem;
   }
 }
+/* CSS FOR PROFILE PAGE */
+/* .profile-paper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #4a47a3 30%, #42275a 90%);
+}
 
+.profile-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.avatarDiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 45px;
+  margin-left: 25px;
+}
+
+.tableDiv {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.profile-details {
+  margin-top: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), -1px -1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+ */
 

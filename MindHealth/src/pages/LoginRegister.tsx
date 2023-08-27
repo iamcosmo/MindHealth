@@ -31,6 +31,12 @@ const LoginRegister: React.FC<LoginRegisterPageProps> = ({ onClose }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const profileImage = "";
+  const profession = "";
+  const address = "";
+  const dob = null;
+  const sex="";
+  const phone="";
   const [currentTab, setCurrentTab] = useState(0);
   const navigate = useNavigate();
   const { setUser } = useUserContext();
@@ -59,6 +65,12 @@ const LoginRegister: React.FC<LoginRegisterPageProps> = ({ onClose }) => {
           name,
           email,
           password,
+          profileImage,
+          profession,
+          address,
+          dob,
+          sex,
+          phone,
         });
         alert("Registratin Successful! Now you can Login");
         navigate("/");

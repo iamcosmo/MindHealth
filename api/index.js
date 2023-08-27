@@ -13,23 +13,40 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 const bcryptSalt = bcrypt.genSaltSync(10);
-const jwtSecret = "sfiuwsf74wtybfb34rt287gbf2";
+
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 mongoose.connect(process.env.MONGO_URL);
 
+//Test
 app.get("/test", (req, res) => {
   res.json("Test ok");
 });
 
+//Register
 app.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-
+  const {
+    name,
+    email,
+    password,
+    profileImage,
+    profession,
+    address,
+    dob,
+    sex,
+    phone,
+  } = req.body;
   try {
     const userInfo = await User.create({
       name,
       email,
       password: bcrypt.hashSync(password, bcryptSalt),
+      profileImage,
+      profession,
+      address,
+      dob: new Date(dob),
+      sex,
+      phone,
     });
 
     res.json(userInfo);
@@ -38,6 +55,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+//Login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -48,7 +66,7 @@ app.post("/login", async (req, res) => {
         console.log("PAssword Matched!");
         jwt.sign(
           { email: userInfo.email, _id: userInfo._id, name: userInfo.name },
-          jwtSecret,
+          process.env.JWT_SECRET,
           {},
           (err, token) => {
             if (err) throw err;
@@ -71,10 +89,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//Profile
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   if (token) {
-    jwt.verify(token, jwtSecret, {}, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
       if (err) throw err;
       res.json(user);
     });
@@ -83,11 +102,9 @@ app.get("/profile", (req, res) => {
   }
 });
 
-// Modify your /logout route in the backend to invalidate the token
+//Logout
 app.post("/logout", (req, res) => {
-  // Clear the token from the client's cookies or session
-  res.clearCookie("token"); // You may need to adjust the cookie name
-  // Respond with a success message
+  res.clearCookie("token");
   res.status(200).json({ message: "Logout successful" });
 });
 
