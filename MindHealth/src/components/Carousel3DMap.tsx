@@ -43,10 +43,16 @@ useEffect(() => {
     >
       <Carousel3D activeIn={activeIndex} containerWidth={carouselWidth}>
         {cardData.map((card, index) => (
-          <div className="card" key={index}>
-            <h2>{card.title}</h2>
-            <h4>{card.subtitle}</h4>
-            <p>{card.content}</p>
+          <div className="card" key={index} style={{backgroundColor: 'rgba(0, 0, 0, 0.8)'}}>
+            <h2 className="neon-text">{card.title}</h2>
+            <div style={{
+                display: "flex",
+                alignItems: "center", 
+              }}>
+            <img src={card.img} alt={card.title} style={{ maxWidth: "30%", maxHeight: "30%" }}/>
+            <p className="hide-paragraph" style={{marginLeft:"12px",marginRight:"12px"}}>{card.content}</p>
+            </div>
+            
           </div>
         ))}
       </Carousel3D>

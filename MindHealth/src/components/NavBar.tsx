@@ -35,8 +35,8 @@ const NavBar = () => {
   const handleProfile = async (settings: String) => {
     if (settings === "Log Out") {
       try {
-        await axios.post("/logout"); // Call the /logout route
-        logout(); // Clear user context and local storage token
+        await axios.post("/logout"); 
+        logout();
         navigate("/");
       } catch (error) {
         console.error("Logout failed:", error);

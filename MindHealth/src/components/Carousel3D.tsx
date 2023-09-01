@@ -10,7 +10,6 @@ const MAX_VISIBILITY = 3;
 
 const Carousel3D: React.FC<CarouselProps> = ({children,activeIn,containerWidth}) => {
     const count = React.Children.count(children);
-
     const [currentIndex, setCurrentIndex] = useState(activeIn);
     useEffect(() => {
         const timer = setInterval(() => {
@@ -35,7 +34,7 @@ const Carousel3D: React.FC<CarouselProps> = ({children,activeIn,containerWidth})
             '--abs-offset': Math.abs(currentIndex - i) / 3,
             pointerEvents: currentIndex === i ? 'auto' : 'none',
             opacity: Math.abs(currentIndex - i) >= MAX_VISIBILITY ? 0 : 1,
-            display: Math.abs(currentIndex - i) > MAX_VISIBILITY ? 'none' : 'block',
+            display: Math.abs(currentIndex - i) > MAX_VISIBILITY ? 'none' : 'block',            
           } as React.CSSProperties} 
         >              
             {child}
